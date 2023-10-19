@@ -1,16 +1,9 @@
 
+import { DefaultSession,NextAuthOptions,getServerSession} from "next-auth";
 import { prisma } from "./db";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import GoogleProvider from "next-auth/providers/google";
-import { DefaultSession,NextAuthOptions,getServerSession} from "next-auth";
 
-// let next auth and jsonweb token module understand the type of data 
-declare module "next-auth/jwt" {
-    interface JWT { 
-        id: string; 
-        credits: number;
-    }
-  }
 
 declare module "next-auth" {
   interface Session extends DefaultSession {
@@ -20,6 +13,16 @@ declare module "next-auth" {
     } & DefaultSession["user"]; 
   }
 }
+
+// let next auth and jsonweb token module understand the type of data 
+declare module "next-auth/jwt" {
+    interface JWT { 
+        id: string; 
+        credits: number;
+    }
+  }
+
+
 
 // Define authentication options for NextAuth.js
 export const authOptions: NextAuthOptions = {
@@ -47,14 +50,14 @@ export const authOptions: NextAuthOptions = {
       if (token) {
         session.user.id = token.id;  //get user id
         session.user.name = token.name; //get user name
-        session.user.credits = token.credits; //get user credit number
         session.user.email = token.email; //get user email
         session.user.image = token.picture; //get log in picture
+        session.user.credits = token.credits; //get user credit number
       }
       return session;
     },
   },
-  secret: process.env.NEXT_AUTH_SECRET as string,
+  secret: process.env.NEXTAUTH_SECRET as string,
   adapter: PrismaAdapter(prisma),
   //pass in google authentication  
   providers: [
