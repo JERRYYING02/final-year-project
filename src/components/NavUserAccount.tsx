@@ -23,7 +23,7 @@ const NavUserAccount = ({ user }: Props) => {
       <DropdownMenuTrigger>
         <UserAvatar user={user} />
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="bg-white text-black border shadow-lg">
+      <DropdownMenuContent align="end" className="bg-white dark:bg-gray-800 dark:text-white text-black border shadow-lg">
       <div className="p-4">
           <div className="flex items-center gap-4">
             <div>
@@ -32,7 +32,7 @@ const NavUserAccount = ({ user }: Props) => {
             <div>
               {user?.name && <p className="font-bold text-lg">{user.name}</p>}
               {user?.email && (
-                <p className="text-sm text-gray-600">{user.email}</p>
+                <p className="dark:text-white text-sm text-gray-600">{user.email}</p>
               )}
             </div>
           </div>

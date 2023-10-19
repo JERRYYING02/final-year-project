@@ -3,8 +3,7 @@ import { Roboto  } from 'next/font/google'
 import {cn} from '@/lib/utils'
 import './globals.css'
 import Navbar from '@/components/Navbar'
-
-
+import { ThemeProvider } from '@/components/ThemeProvider'
 import { Poppins } from 'next/font/google'
 
 const poppins = Poppins({
@@ -26,9 +25,10 @@ export default function RootLayout({
   return (
     <html lang="en">
      <body className={cn(poppins.className, "antialiased min-h-screen pt-16")}>
- 
-          <Navbar />
-          {children}
+          <ThemeProvider>
+            <Navbar />
+            {children}
+          </ThemeProvider>
 
       </body>
     </html>
